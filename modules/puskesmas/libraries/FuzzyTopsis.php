@@ -150,9 +150,23 @@ class FuzzyTopsis
             $dMinus = $dist['dMinus'];
             $score = ($dPlus + $dMinus) == 0 ? 0 : $dMinus / ($dPlus + $dMinus);
 
+            if ($score >= 0.80) {
+                $label = 'Sangat Baik';
+            } elseif ($score >= 0.60) {
+                $label = 'Baik';
+            } elseif ($score >= 0.40) {
+                $label = 'Cukup';
+            } elseif ($score >= 0.20) {
+                $label = 'Buruk';
+            } else {
+                $label = 'Sangat Buruk';
+            }
+
             $results[$i] = [
+                'id' => $this->alternatives[$i]['id'],
                 'alternative' => $this->alternatives[$i]['name'],
-                'score' => round($score, 4),
+                'score' => $score,
+                'label' => $label
             ];
         }
 

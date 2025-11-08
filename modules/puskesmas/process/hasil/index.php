@@ -6,7 +6,8 @@ use Modules\Puskesmas\Libraries\FuzzyTopsis;
 $db = new Database;
 
 $kriteria  = $db->all('kriteria');
-$puskesmas = $db->all('puskesmas');
+
+$puskesmas = $db->all('puskesmas', 'waktu_penilaian IS NOT NULL');
 
 $kriteriaMap = [];
 
@@ -48,6 +49,8 @@ foreach($puskesmas as $p)
 
 $topsis = new FuzzyTopsis($criterias, $alternatives);
 $results = $topsis->process();
+
+// return $results;
 
 // return [
 //     $topsis->normalizedResult,
